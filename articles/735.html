@@ -1,0 +1,436 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Питомцы. Немного формул — Библиотека ChaosageDaily</title><link rel="stylesheet" href="../article.css"></head><body><main><a class="back" href="../index.html">← Каталог статей</a><h1>Питомцы. Немного формул</h1><p class="meta">2023-03-24</p><div class="article-body"><div class="editor-entry">
+                <figure class="cover"><img src="../assets/ac126223ee6d240e280c.jpg" alt="Питомцы. Немного формул" loading="lazy"></figure><p class="wp-block-paragraph">Питомцы в <a href="https://chaosage.ru/" target="_blank" rel="noopener noreferrer">Аватарах</a> существуют уже десяток лет, но до сих пор не было разбора/расчета основных формул получения опыта и ценностей в особых действиях питомцев. Эта заметка призвана разрешить это недоразумение.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity">
+
+
+
+<h2 class="wp-block-heading">Свободная охота</h2>
+
+
+
+<p class="wp-block-paragraph">Отправляет питомца за опытом, <strong>пока питомец на охоте, его сытость не снижается</strong>.</p>
+
+
+
+<ul class="wp-block-list">
+<li>Можно отправить охотиться на 6, 8, 12, 24, 48, 96 часов. В зависимости от выбранного времени снижает Преданность питомца (для 6 и 8 часов = на 1 единицу, 12 – 2 ед. и т.д. до 96 – 5 ед.)</li>
+
+
+
+<li>Питомец вернется позже, чем выбранное время охоты истечет – чем меньше Преданность питомца при отправке на охоту, тем больше отклонение
+<ul class="wp-block-list">
+<li>Формула отклонения (в секундах): <strong>СЛУЧАЙНОЕ_ЗНАЧЕНИЕ_МЕЖДУ(0, 100-Преданность)*360*k</strong>, где k – снижение Преданности при отправке питомца (из предыдущего пункта). Полученное значение прибавляется к выбранному времени отправки</li>
+
+
+
+<li>Пример 1: Преданность 90, отправляем питомца на 24 часа. Отклонение = случ(0, 100-90)*360*3 = случ(0, 10)*1080. В итоге питомец задержится на время в промежутке 0 и 10 800 секунд (до 3-х часов).</li>
+
+
+
+<li>Пример 2: Преданность 10, отправляем питомца на 96 часов. Отклонение = случ(0, 100-10)*360*5 = случ(0, 90)*1800. В итоге питомец задержится на время в промежутке 0 и 162 000 секунд (до 45-х часов).</li>
+</ul>
+</li>
+
+
+
+<li>Питомец получает опыт по завершению охоты в соответствии с формулой: 
+<ul class="wp-block-list">
+<li><strong>(k+1)^2.5 * (уровень_питомца/2) * эффект_знака_Золт * (Преданность/100)</strong>, где k – снижение Преданности при отправке питомца (из предыдущего пункта), эффект_знака_Золт – дополнительные 20% опыта при активном знаке Золт на питомце</li>
+
+
+
+<li>Пример 1: Отправляем питомца 20 уровня на 96 часов на охоту, преданность 95, знака на опыт нет. Опыт = (5+1)^2.5 * (20/2) * 1 * (95/100) = 837 опыта.</li>
+
+
+
+<li>Пример 2: Отправляем питомца 1 уровня на 8 часов на охоту, преданность 10, знака на опыт нет. Опыт = (1+1)^2.5 * (1/2) * 1 * (10/100) = 0 опыта.</li>
+</ul>
+</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Можно заметить, что 6 и 8 часов отправки на охоту дают одинаковое количество опыта (так как k = 1), однако отправка на 8 часов может быть полезнее в отдельных случаях, когда необходимо подержать питомца на охоте для отключения расхода сытости дольше 6 часов.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity">
+
+
+
+<h2 class="wp-block-heading">Поиск ценностей</h2>
+
+
+
+<p class="wp-block-paragraph">Отправляет питомца искать различные предметы, ценные и не очень.</p>
+
+
+
+<ul class="wp-block-list">
+<li>Можно отправить охотиться на 6, 8, 12, 18, 26, 36 часов. В зависимости от выбранного времени снижает Преданность питомца (для 6 и 8 часов = на 1 единицу, 12 – 2 ед. и т.д. до 36 – 5 ед.)</li>
+
+
+
+<li>Питомец вернется позже, чем выбранное время Поиска ценностей истечет – чем меньше Преданность питомца при отправке на поиск, тем больше отклонение
+<ul class="wp-block-list">
+<li>Формула отклонения (в секундах): <strong>СЛУЧАЙНОЕ_ЗНАЧЕНИЕ_МЕЖДУ(0, 100-Преданность)*240*k</strong>, где k – снижение Преданности при отправке питомца (из предыдущего пункта). Полученное значение прибавляется к выбранному времени отправки</li>
+
+
+
+<li>Формула практически идентична формуле задержки при свободной охоте, только питомец в среднем будет задерживать на меньшее время (значение множителя 240 в формуле поиска ценностей, против 360 в свободной охоте)</li>
+</ul>
+</li>
+
+
+
+<li>Питомец может принести фиксированную награду из списка с 51 предметом, список предметов с номерами в таблице ниже.
+<ul class="wp-block-list">
+<li>Номер предмета из списка определяется по формуле, включающей нижнюю и верхнюю границы номера вещей:
+<ul class="wp-block-list">
+<li>Верхняя граница: <strong>3 + ОКРУГЛВВЕРХ((уровень_питомца / 3 * k + тип_питомца) * Преданность / 90)</strong> <strong>* эффект_знака_Слам</strong>, где k – снижение Преданности при отправке питомца (из предыдущего пункта), <strong>тип_питомца</strong> – тип питомца, который был отправлен на поиск ценностей (в таблице ниже)</li>
+
+
+
+<li>Нижняя граница: <strong>ОКРУГЛВНИЗ(Верхняя граница / 2)</strong></li>
+
+
+
+<li>Пример 1: отправляем Паука 20 уровня на 36 часов, преданность 100, знака Слам на повышение эффекта Поиска ценностей нет. <strong>Верхняя граница = 3 + ОКРУГЛВВЕРХ((20 / 3 * 5 + 3) * 100 / 90) * 1 = 44</strong>. Нижняя граница = 44/2 = 22. Итого будет выбран случайный предмет из списка ниже в диапазоне номеров (22, 44). Необходимо учесть то, что номер 1 в таблице соответствует номеру 0, полученному в формуле, то есть в таблице будет выбран предмет из диапазона (23, 45). <strong>Средняя ценность – 631 серебра.</strong></li>
+
+
+
+<li>Пример 2: отправляем Раптора 25 уровня на 36 часов, преданность 100, знак Слам на повышение эффекта Поиска ценностей есть. <strong>Верхняя граница = 3 + ОКРУГЛВВЕРХ((25 / 3 * 5 + 6) * 100 / 90) * 1.1 = 57</strong>. Так как получено значение 57 (что больше длины списка вещей), итоговое значение равно 50. Нижняя граница = 50/2 = 25. Итого будет выбран случайный предмет из списка ниже в диапазоне номеров (25, 50). Необходимо учесть то, что номер 1 в таблице соответствует номеру 0, полученному в формуле, то есть в таблице будет выбран предмет из диапазона (26, 51). <strong>Средняя ценность – 960 серебра.</strong></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Как видно из формулы поиска ценностей, существует предел в стоимости приносимых питомцем вещей, при этом на определенном этапе (когда верхняя граница по формуле превышает максимальное допустимое значение) нет смысла прокачивать уровень питомца для повышения ценности получаемых вещей. Однако повышение уровня, использование знаков и отправка питомца с высокой преданностью позволяет достигнуть предела награды при отправке не на 36 часов, а на 26, например, что увеличивает количество получаемого серебра в час с поиска ценностей. Так, например, если во втором примере расчетов отправить Раптора не на 36 часов, а на 26, но при этом у Раптора будет 30 уровень, а не 25, то итоговая ценность приносимой питомцем вещи будет одинаковой, то есть соотношение серебро/час в данном случае вырастает на 30% за 5 уровней раптора.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity">
+
+
+
+<h2 class="wp-block-heading">Перенос вещей в Постоялый двор</h2>
+
+
+
+<p class="wp-block-paragraph">Отправляет питомца с выбранной пачкой предметов и ресурсов в Постоялый двор. Время перемещения – 3 часа.</p>
+
+
+
+<ul class="wp-block-list">
+<li>Питомец задержится с возвращением на 120 секунд за каждую недостающую единицу преданности.</li>
+
+
+
+<li>Формула переносимого питомцем веса: (<strong>20 + (тип_питомца + 3) * 10 * уровень_питомца) * эффект_знака_Твик * Сытость / 100</strong>, где тип_питомца – по аналогии с Поиском ценностей из таблицы ниже
+<ul class="wp-block-list">
+<li>Пример: Саламандра 25 уровня со знаком Твик и Сытостью 90. Переносимый вес: (<strong>20 + (6 + 3) * 10 * 25) * 1.3 * 90 / 100</strong> = 2 656</li>
+</ul>
+</li>
+</ul>
+
+
+
+<p class="wp-block-paragraph">Если исходить из отзывов некоторых шахтеров-магов, перенос предметов в Постоялый двор является очень полезной функцией питомца, позволяющей отсрочить момент, когда переносимый вес начнет увеличивать ОД на действие игрока от перевеса</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity">
+
+
+
+<figure class="wp-block-table is-style-stripes"><table class="has-fixed-layout"><thead><tr><th class="has-text-align-center" data-align="center">Питомец</th><th class="has-text-align-center" data-align="center">Коэффициент типа питомца для расчета поиска ценностей и переносимого веса</th></tr></thead><tbody><tr><td class="has-text-align-center" data-align="center">Волк</td><td class="has-text-align-center" data-align="center">1</td></tr><tr><td class="has-text-align-center" data-align="center">Медведь</td><td class="has-text-align-center" data-align="center">2</td></tr><tr><td class="has-text-align-center" data-align="center">Паук</td><td class="has-text-align-center" data-align="center">3</td></tr><tr><td class="has-text-align-center" data-align="center">Кобра</td><td class="has-text-align-center" data-align="center">4</td></tr><tr><td class="has-text-align-center" data-align="center">Скорпион</td><td class="has-text-align-center" data-align="center">5</td></tr><tr><td class="has-text-align-center" data-align="center">Грифон, Саламандры, Раптор</td><td class="has-text-align-center" data-align="center">6</td></tr></tbody></table></figure>
+
+
+
+<div class="wp-block-wpdatatables-wpdatatables-gutenberg-block"><h3 class="wpdt-c" id="wdt-table-title-3">Список предметов, которые может принести питомец</h3>
+    <div class="wpdt-c ">
+    
+<input type="hidden" id="wdtNonceFrontendEdit" name="wdtNonceFrontendEdit" value="3b59cfe058"><input type="hidden" name="_wp_http_referer" value="/?p=735">    <input type="hidden" id="table_1_desc" value='{"tableId":"table_1","tableType":"xls","selector":"#table_1","responsive":true,"responsiveAction":"icon","infoBlock":true,"pagination":1,"paginationAlign":"right","paginationLayout":"full_numbers","paginationLayoutMobile":"simple","file_location":"wp_media_lib","table_wcag":0,"simple_template_id":0,"scrollable":false,"globalSearch":true,"showRowsPerPage":true,"hideBeforeLoad":true,"pagination_top":0,"number_format":1,"decimalPlaces":2,"spinnerSrc":"https:\/\/daily.chaosage.app\/wp-content\/plugins\/wpdatatables\/assets\/\/img\/spinner.gif","groupingEnabled":false,"tableWpId":3,"dataTableParams":{"sDom":"BT\u003C\u0027clear\u0027\u003Elftip","bSortCellsTop":false,"bPaginate":true,"sPaginationType":"full_numbers","aLengthMenu":[[1,5,10,25,50,100,-1],[1,5,10,25,50,100,"\u0412\u0441\u0435"]],"iDisplayLength":-1,"columnDefs":[{"sType":"formatted-num","wdtType":"int","bVisible":true,"orderable":true,"searchable":true,"InputType":"text","name":"\u2116","origHeader":"\u2116","notNull":false,"conditionalFormattingRules":[],"className":"numdata integer  column-0","aTargets":[0]},{"sType":"string","wdtType":"string","bVisible":true,"orderable":true,"searchable":true,"InputType":"text","name":"\u041f\u0440\u0435\u0434\u043c\u0435\u0442","origHeader":"\u041f\u0440\u0435\u0434\u043c\u0435\u0442","notNull":false,"conditionalFormattingRules":[],"className":" column-1","aTargets":[1]},{"sType":"string","wdtType":"string","bVisible":true,"orderable":true,"searchable":true,"InputType":"text","name":"\u0421\u0442\u043e\u0438\u043c\u043e\u0441\u0442\u044c","origHeader":"\u0421\u0442\u043e\u0438\u043c\u043e\u0441\u0442\u044c","notNull":false,"conditionalFormattingRules":[],"className":" column-2","aTargets":[2]}],"bAutoWidth":false,"order":[[0,"asc"]],"ordering":true,"buttons":[{"extend":"print","exportOptions":{"columns":":visible","stripHtml":true},"className":"DTTT_button DTTT_button_print","title":"\u0422\u044b_\u0437\u0430\u0447\u0435\u043c_\u0441\u043a\u0430\u0447\u0430\u043b","text":"\u041f\u0435\u0447\u0430\u0442\u044c"},{"extend":"excelHtml5","exportOptions":{"columns":":visible","stripHtml":true},"className":"DTTT_button DTTT_button_xls","filename":"\u0422\u044b_\u0437\u0430\u0447\u0435\u043c_\u0441\u043a\u0430\u0447\u0430\u043b","title":null,"text":"Excel"},{"extend":"csvHtml5","exportOptions":{"columns":":visible","stripHtml":true},"className":"DTTT_button DTTT_button_csv","title":"\u0422\u044b_\u0437\u0430\u0447\u0435\u043c_\u0441\u043a\u0430\u0447\u0430\u043b","text":"CSV"},{"extend":"copyHtml5","exportOptions":{"columns":":visible","stripHtml":true},"className":"DTTT_button DTTT_button_copy","filename":"\u0422\u044b_\u0437\u0430\u0447\u0435\u043c_\u0441\u043a\u0430\u0447\u0430\u043b","title":null,"text":"\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c"}],"oSearch":{"bSmart":false,"bRegex":false,"sSearch":""}},"currentSkin":"skin1","tabletWidth":"1024","mobileWidth":"480","columnsFixed":0,"timeFormat":"h:i A","datepickFormat":"dd\/mm\/yy"}'>
+
+    <table id="table_1" class="           responsive           display nowrap data-t wpDataTable wpDataTableID-3" style="display: none; " data-described-by="table_1_desc" data-wpdatatable_id="3">
+        
+        <!-- Table header -->
+        
+<thead>
+<tr>
+                    <th data-class="expand" class=" wdtheader sort numdata integer " style="">№</th>        <th class=" wdtheader sort " style="">Предмет</th>        <th class=" wdtheader sort " style="">Стоимость</th>    </tr>
+</thead>
+        <!-- /Table header -->
+
+        <!-- Table body -->
+        
+<tbody>
+        <tr id="table_3_row_0">
+                    <td style="">1</td>
+                    <td style="">Кувшинка прыгучая</td>
+                    <td style="">1 серебра</td>
+            </tr>
+            <tr id="table_3_row_1">
+                    <td style="">2</td>
+                    <td style="">Ромашка</td>
+                    <td style="">1 серебра</td>
+            </tr>
+            <tr id="table_3_row_2">
+                    <td style="">3</td>
+                    <td style="">Гриб</td>
+                    <td style="">2 серебра</td>
+            </tr>
+            <tr id="table_3_row_3">
+                    <td style="">4</td>
+                    <td style="">Перо грифона</td>
+                    <td style="">6 серебра</td>
+            </tr>
+            <tr id="table_3_row_4">
+                    <td style="">5</td>
+                    <td style="">Грубая шкура</td>
+                    <td style="">9 серебра</td>
+            </tr>
+            <tr id="table_3_row_5">
+                    <td style="">6</td>
+                    <td style="">Жало скорпиона</td>
+                    <td style="">15 серебра</td>
+            </tr>
+            <tr id="table_3_row_6">
+                    <td style="">7</td>
+                    <td style="">Ржавые наручи</td>
+                    <td style="">28 серебра</td>
+            </tr>
+            <tr id="table_3_row_7">
+                    <td style="">8</td>
+                    <td style="">Перепел</td>
+                    <td style="">40 серебра</td>
+            </tr>
+            <tr id="table_3_row_8">
+                    <td style="">9</td>
+                    <td style="">Наручи блеска</td>
+                    <td style="">42 серебра</td>
+            </tr>
+            <tr id="table_3_row_9">
+                    <td style="">10</td>
+                    <td style="">Ржавый шлем</td>
+                    <td style="">66 серебра</td>
+            </tr>
+            <tr id="table_3_row_10">
+                    <td style="">11</td>
+                    <td style="">Кролик</td>
+                    <td style="">70 серебра</td>
+            </tr>
+            <tr id="table_3_row_11">
+                    <td style="">12</td>
+                    <td style="">Тонкий пояс</td>
+                    <td style="">81 серебра</td>
+            </tr>
+            <tr id="table_3_row_12">
+                    <td style="">13</td>
+                    <td style="">Фазан</td>
+                    <td style="">110 серебра</td>
+            </tr>
+            <tr id="table_3_row_13">
+                    <td style="">14</td>
+                    <td style="">Острый шишак</td>
+                    <td style="">113 серебра</td>
+            </tr>
+            <tr id="table_3_row_14">
+                    <td style="">15</td>
+                    <td style="">Чешуйчатые перчатки</td>
+                    <td style="">126 серебра</td>
+            </tr>
+            <tr id="table_3_row_15">
+                    <td style="">16</td>
+                    <td style="">Обсидиан</td>
+                    <td style="">134 серебра</td>
+            </tr>
+            <tr id="table_3_row_16">
+                    <td style="">17</td>
+                    <td style="">Походные сапоги</td>
+                    <td style="">158 серебра</td>
+            </tr>
+            <tr id="table_3_row_17">
+                    <td style="">18</td>
+                    <td style="">Поросенок</td>
+                    <td style="">160 серебра</td>
+            </tr>
+            <tr id="table_3_row_18">
+                    <td style="">19</td>
+                    <td style="">Блестящий посох</td>
+                    <td style="">176 серебра</td>
+            </tr>
+            <tr id="table_3_row_19">
+                    <td style="">20</td>
+                    <td style="">Алмаз</td>
+                    <td style="">205 серебра</td>
+            </tr>
+            <tr id="table_3_row_20">
+                    <td style="">21</td>
+                    <td style="">Барашек</td>
+                    <td style="">220 серебра</td>
+            </tr>
+            <tr id="table_3_row_21">
+                    <td style="">22</td>
+                    <td style="">Полный закрытый шлем</td>
+                    <td style="">248 серебра</td>
+            </tr>
+            <tr id="table_3_row_22">
+                    <td style="">23</td>
+                    <td style="">Легкий пояс</td>
+                    <td style="">252 серебра</td>
+            </tr>
+            <tr id="table_3_row_23">
+                    <td style="">24</td>
+                    <td style="">Пластинчатые перчатки</td>
+                    <td style="">306 серебра</td>
+            </tr>
+            <tr id="table_3_row_24">
+                    <td style="">25</td>
+                    <td style="">Изумрудный посох</td>
+                    <td style="">310 серебра</td>
+            </tr>
+            <tr id="table_3_row_25">
+                    <td style="">26</td>
+                    <td style="">Кловеры кузнеца</td>
+                    <td style="">337 серебра</td>
+            </tr>
+            <tr id="table_3_row_26">
+                    <td style="">27</td>
+                    <td style="">Блестящее кольцо</td>
+                    <td style="">388 серебра</td>
+            </tr>
+            <tr id="table_3_row_27">
+                    <td style="">28</td>
+                    <td style="">Кольцо темной воли</td>
+                    <td style="">404 серебра</td>
+            </tr>
+            <tr id="table_3_row_28">
+                    <td style="">29</td>
+                    <td style="">Ритуальный амулет</td>
+                    <td style="">423 серебра</td>
+            </tr>
+            <tr id="table_3_row_29">
+                    <td style="">30</td>
+                    <td style="">Тяжелые наручи</td>
+                    <td style="">463 серебра</td>
+            </tr>
+            <tr id="table_3_row_30">
+                    <td style="">31</td>
+                    <td style="">Акулий пояс</td>
+                    <td style="">466 серебра</td>
+            </tr>
+            <tr id="table_3_row_31">
+                    <td style="">32</td>
+                    <td style="">Лазурные сапоги</td>
+                    <td style="">473 серебра</td>
+            </tr>
+            <tr id="table_3_row_32">
+                    <td style="">33</td>
+                    <td style="">Сумеречный щит</td>
+                    <td style="">544 серебра</td>
+            </tr>
+            <tr id="table_3_row_33">
+                    <td style="">34</td>
+                    <td style="">Кольцо могущества</td>
+                    <td style="">644 серебра</td>
+            </tr>
+            <tr id="table_3_row_34">
+                    <td style="">35</td>
+                    <td style="">Паучий шлем</td>
+                    <td style="">652 серебра</td>
+            </tr>
+            <tr id="table_3_row_35">
+                    <td style="">36</td>
+                    <td style="">Варварский щит</td>
+                    <td style="">687 серебра</td>
+            </tr>
+            <tr id="table_3_row_36">
+                    <td style="">37</td>
+                    <td style="">Шлем ночного охотника</td>
+                    <td style="">724 серебра</td>
+            </tr>
+            <tr id="table_3_row_37">
+                    <td style="">38</td>
+                    <td style="">Пояс уверенности</td>
+                    <td style="">728 серебра</td>
+            </tr>
+            <tr id="table_3_row_38">
+                    <td style="">39</td>
+                    <td style="">Посох лича</td>
+                    <td style="">838 серебра</td>
+            </tr>
+            <tr id="table_3_row_39">
+                    <td style="">40</td>
+                    <td style="">Кольцо ночного сияния</td>
+                    <td style="">864 серебра</td>
+            </tr>
+            <tr id="table_3_row_40">
+                    <td style="">41</td>
+                    <td style="">Закрытый шлем умений</td>
+                    <td style="">879 серебра</td>
+            </tr>
+            <tr id="table_3_row_41">
+                    <td style="">42</td>
+                    <td style="">Сапоги тяжелой поступи</td>
+                    <td style="">954 серебра</td>
+            </tr>
+            <tr id="table_3_row_42">
+                    <td style="">43</td>
+                    <td style="">Посох кристалла</td>
+                    <td style="">967 серебра</td>
+            </tr>
+            <tr id="table_3_row_43">
+                    <td style="">44</td>
+                    <td style="">Составные кловеры</td>
+                    <td style="">1085 серебра</td>
+            </tr>
+            <tr id="table_3_row_44">
+                    <td style="">45</td>
+                    <td style="">Перчатки злых намерений</td>
+                    <td style="">1145 серебра</td>
+            </tr>
+            <tr id="table_3_row_45">
+                    <td style="">46</td>
+                    <td style="">Болотный шлем</td>
+                    <td style="">1320 серебра</td>
+            </tr>
+            <tr id="table_3_row_46">
+                    <td style="">47</td>
+                    <td style="">Рыцарский шлем (подарок)</td>
+                    <td style="">4 золота</td>
+            </tr>
+            <tr id="table_3_row_47">
+                    <td style="">48</td>
+                    <td style="">Песочные часы (подарок)</td>
+                    <td style="">3 золота</td>
+            </tr>
+            <tr id="table_3_row_48">
+                    <td style="">49</td>
+                    <td style="">Волшебный кристалл</td>
+                    <td style="">4000 серебра</td>
+            </tr>
+            <tr id="table_3_row_49">
+                    <td style="">50</td>
+                    <td style="">Посох молний</td>
+                    <td style="">1904 серебра</td>
+            </tr>
+            <tr id="table_3_row_50">
+                    <td style="">51</td>
+                    <td style="">Пустынные сапоги</td>
+                    <td style="">2172 серебра</td>
+            </tr>
+    </tbody>        <!-- /Table body -->
+
+        
+    </table>
+
+        <span class="powered_by_link d-block m-l-10 m-t-10 m-b-10">Generated by <a href="https://wpdatatables.com" rel="noopener noreferrer" target="_blank">wpDataTables</a></span>
+</div></div>
+</div></div></main></body></html>

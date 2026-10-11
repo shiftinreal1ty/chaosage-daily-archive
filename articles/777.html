@@ -1,0 +1,161 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Гирокуб. Сундуки, Гиросферы, Рекомбинатор — Библиотека ChaosageDaily</title><link rel="stylesheet" href="../article.css"></head><body><main><a class="back" href="../index.html">← Каталог статей</a><h1>Гирокуб. Сундуки, Гиросферы, Рекомбинатор</h1><p class="meta">2023-04-06</p><div class="article-body"><div class="editor-entry">
+                <figure class="cover"><img src="../assets/a7578d56051b7ff83586.jpg" alt="Гирокуб. Сундуки, Гиросферы, Рекомбинатор" loading="lazy"></figure><hr class="wp-block-separator has-alpha-channel-opacity">
+
+
+
+<p class="wp-block-paragraph">В этой заметке рассмотрим шансы встретить сундуки (и их содержание), рекомбинатор, гиросферы в гирокубе. Спасибо Rewad’у за предоставление формул.</p>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity">
+
+
+
+<h2 class="wp-block-heading">Гир-о-Сфера</h2>
+
+
+
+<ul class="wp-block-list">
+<li>Встречается на развилках и перекрестках всех этажей гирокуба</li>
+
+
+
+<li><strong>Шанс встретить гиросферу на развилке/перекрестке – 8%</strong></li>
+
+
+
+<li><a href="../articles/418.html" target="_blank" rel="noreferrer noopener">Подробнее</a></li>
+</ul>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity">
+
+
+
+<h2 class="wp-block-heading">Сундуки в Гир-о-кубе</h2>
+
+
+
+<ul class="wp-block-list">
+<li>Можно найти в любом тупике (кроме тупиков с порталом и кнопкой) гирокуба</li>
+
+
+
+<li>Содержит 1 гир или 1 гировещь, или ничего.</li>
+
+
+
+<li><strong>Шанс найти сундук в тупике – </strong><em><strong>(10+этаж)^0.95</strong>.</em> Например, 
+<ul class="wp-block-list">
+<li>на 10 этаже шанс найти сундук – 20^0.95 = 17%, </li>
+
+
+
+<li>на 20 этаже 30^0.95 = 25%.</li>
+
+
+
+<li>на 30 этаже 40^0.95 = 33%.</li>
+
+
+
+<li>на 40 этаже 50^0.95 = 41%.</li>
+</ul>
+</li>
+
+
+
+<li><strong>Гировещь в сундуке выпадает с шансом 3%.</strong></li>
+
+
+
+<li><strong>Гир в сундуке выпадает с 30% вероятностью.</strong></li>
+
+
+
+<li>Гир в сундуке выбирается из списка гиров по нижней и верхней границам (0 – гир B, 14 – гир S):
+<ul class="wp-block-list">
+<li>Верхняя граница: <strong>ОКРУГЛВВЕРХ((этаж/2)^0.94)</strong>, но не более 14</li>
+
+
+
+<li>Нижняя граница:
+<ul class="wp-block-list">
+<li>Если этаж &lt;= 30, нижняя граница = 0</li>
+
+
+
+<li>Если этаж &gt; 30, нижняя граница = <strong>ОКРУГЛВНИЗ((этаж – 28) / 3)</strong>, но не больше 10</li>
+</ul>
+</li>
+
+
+
+<li>Например,
+<ul class="wp-block-list">
+<li>Этаж 1. Границы [0, 1] – выпадают гиры B, C</li>
+
+
+
+<li>Этаж 10. Границы [0, 5] – гиры с B по H</li>
+
+
+
+<li>Этаж 20. Границы [0, 9] – гиры с B по M</li>
+
+
+
+<li>Этаж 31. Границы [0, 14] – все гиры (первый этаж, на котором в сундуке можно найти гир S)</li>
+
+
+
+<li>Этаж 40. Границы [4, 14] – гиры с G по S.</li>
+</ul>
+</li>
+</ul>
+</li>
+
+
+
+<li>Проверка на выпадение гировещи происходит до проверки на выпадение гира.</li>
+</ul>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity">
+
+
+
+<h2 class="wp-block-heading">Рекомбинатор</h2>
+
+
+
+<ul class="wp-block-list">
+<li>Встречается в тупиках гирокуба, в которых не выпал сундук</li>
+
+
+
+<li>Не более одного рекомбинатора на этаж</li>
+
+
+
+<li><strong>Шанс обнаружить рекомбинатор – <em>(5+этаж/2)^0.95</em></strong>. Например,
+<ul class="wp-block-list">
+<li>на 10 этаже шанс найти рекомбинатор – 10^0.95 = 9%, </li>
+
+
+
+<li>на 40 этаже 25^0.95 = 21%.</li>
+</ul>
+</li>
+</ul>
+
+
+
+<hr class="wp-block-separator has-alpha-channel-opacity">
+
+
+
+<p class="wp-block-paragraph">Как можно заметить, сундуки и что-то полезное из сундуков в Гирокубе падает не часто – <strong>на 40 этаже при полном обходе всех тупиков (47 штук) будет найдено в среднем 19 сундуков</strong>, из которых только 5-6 сундуков будут иметь гир. Шанс найти гировещь на этом же этаже с обходом всех тупиков ~58%.</p>
+</div></div></main></body></html>

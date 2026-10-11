@@ -1,0 +1,1430 @@
+<!doctype html><html lang="ru"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Опыт за заклинания. Самый выгодный слив маны. — Библиотека ChaosageDaily</title><link rel="stylesheet" href="../article.css"></head><body><main><a class="back" href="../index.html">← Каталог статей</a><h1>Опыт за заклинания. Самый выгодный слив маны.</h1><p class="meta">2021-04-17</p><div class="article-body"><div class="editor-entry">
+                <figure class="cover"><img src="../assets/cf009f01792de73af3a6.jpeg" alt="Опыт за заклинания. Самый выгодный слив маны." loading="lazy"></figure><p class="wp-block-paragraph">Приветствую читателей. В данной статье затронем такой насущный, для магов, вопрос, как “Какие заклинания и в каком порядке необходимо использовать, чтобы получать максимальное количество опыта за бой?”. Заодно развеем несколько мифов, связанных с этим.</p>
+
+
+
+<p class="wp-block-paragraph">Начнем с описания формулы расчета опыта за заклинания, которую публиковал Rewad на форуме:</p>
+
+
+
+<blockquote class="wp-block-quote is-layout-flow wp-block-quote-is-layout-flow">
+<p class="wp-block-paragraph"><em>опыт за заклинание = округление(((уровень_навыка_магии_требуемый_для_изучения_заклинания)^2.1+(расход_маны^0.9)*3.5/(уровень_навыка_магии_требуемый_для_изучения_заклинания)^0.5)*(1-0.03*количество_произнесенных_заклинаний))</em></p>
+
+
+
+<p class="wp-block-paragraph">…</p>
+
+
+
+<p class="wp-block-paragraph">Но это, так сказать, сферические формулы в вакууме, накопленный таким образом опыт за весь бой при подсчете результатов еще обрабатывается, к нему применяются разные коэффициенты – от интеллекта, от разности уровней с ботами, от штрафа за уровень аватара, от профессии и т.п.</p>
+<cite>Rewad</cite></blockquote>
+
+
+
+<p class="wp-block-paragraph">Сразу же отсеиваем миф о том, что заклинания нужно чередовать для увеличения опыта – <strong>это не играет никакой роли в итоговом расчете.</strong> </p>
+
+
+
+<p class="wp-block-paragraph">Таким образом, видим, что опыт за заклинания зависит от:</p>
+
+
+
+<ol class="wp-block-list has-normal-font-size">
+<li><strong>Уровня магии заклинания (от 1 до 15)</strong></li>
+
+
+
+<li><strong>Расхода маны на заклинание</strong></li>
+
+
+
+<li><strong>Порядка произнесения заклинания</strong></li>
+
+
+
+<li>Интеллекта игрока</li>
+
+
+
+<li>Разности уровней соперников и игрока</li>
+
+
+
+<li>Штрафов за уровень персонажа, профессию и т.д.</li>
+
+
+
+<li>Активации двойного опыта печати, хороших выходных, двойного опыт из кошелька</li>
+</ol>
+
+
+
+<p class="wp-block-paragraph">С пунктами с 4 по 7 все более-менее ясно, они оказывают прямое влияние на итоговый опыт. Рассмотрим подробно функцию расчета опыта от самих заклинаний. Для этого сгенерируем несуществующие заклинания от 1 до 15 уровня магии с затратами маны от 200 до 10 000 с шагом 200.</p>
+
+
+
+<hr class="wp-block-separator has-css-opacity">
+
+
+
+<div class="wp-block-media-text alignwide is-stacked-on-mobile"><figure class="wp-block-media-text__media"><img decoding="async" width="401" height="262" src="../assets/c1f557208ae344287566.png" alt="" class="wp-image-237 size-full" loading="lazy"></figure><div class="wp-block-media-text__content">
+<p class="wp-block-paragraph">На графике видно, что <strong>чем выше уровень заклинания, тем меньше опыта за него можно получить</strong>. Заклинание 1-го уровня стоимостью 10 000 маны даст почти 14 000 опыта, в то время как аналогичное заклинание 15-го уровня даст 4 000 опыта. Получается сливаться нужно мелкими заклинаниями 1-го уровня?</p>
+
+
+
+<p class="wp-block-paragraph">Не совсем. Заклинаний 1-го уровня со стоимостью в 10 000 маны не существует.</p>
+</div></div>
+
+
+
+<p class="wp-block-paragraph">Стоит рассмотреть реальные игровые примеры. Возьмем все заклинания в игре и построим подобный график для них.</p>
+
+
+
+<div class="wp-block-media-text alignwide is-stacked-on-mobile"><figure class="wp-block-media-text__media"><img decoding="async" width="395" height="262" src="../assets/71a034a52cf167405877.png" alt="" class="wp-image-238 size-full" loading="lazy"></figure><div class="wp-block-media-text__content">
+<p class="wp-block-paragraph">Совсем другая картина. <strong>Чем старше уровень магии заклинания, тем больше опыта.</strong> Но почему в предыдущем примере все было иначе?</p>
+
+
+
+<p class="wp-block-paragraph">Чтобы ответить на этот вопрос построим график зависимости опыта за 1 единицу маны и общего опыта за заклинание</p>
+</div></div>
+
+
+
+<div class="wp-block-media-text alignwide has-media-on-the-right is-stacked-on-mobile"><div class="wp-block-media-text__content">
+<p class="wp-block-paragraph">Если внимательно посмотреть на график, можно заметить, что <strong>самые дорогие по опыту заклинания имеют наименьшую эффективность опыт/мана (0.5 опыта за 1 единицу маны). </strong>А заклинания наименьшей стоимости по мане имеют наибольший коэффициент (вплоть до 3 опыта за 1 единицу маны).</p>
+</div><figure class="wp-block-media-text__media"><img decoding="async" width="400" height="262" src="../assets/d4df76f8060b285f02fd.png" alt="" class="wp-image-239 size-full" loading="lazy"></figure></div>
+
+
+
+<hr class="wp-block-separator has-css-opacity">
+
+
+
+<p class="wp-block-paragraph">Что можно сказать уже сейчас? <strong>Чем старше по навыку магии заклинание, тем меньше эффективность “конвертации” маны в опыт, но так как эти заклинания стоят много маны, они дают наибольший прирост опыта. </strong>В целом, это очевидно, что 1 каст Ангела-хранителя за 10к+ маны даст больше опыта, чем 1 каст Ускорения времени. Но фактически ускорение времени более эффективно, чем Ангел-хранитель.</p>
+
+
+
+<p class="wp-block-paragraph">На данном этапе важным элементом расчета является то, что чем больше заклинаний произнесет маг, тем меньше опыта даст каждое следующее заклинание. Предельное количество заклинаний, за которое будет начисляться опыт – 33 штуки. Как это поможет в расчетах лучшей комбинации слива маны? В некотором идеальном мире у игрока должно быть ~350 000 маны, чтобы скастовать 33 раза Ангел-хранитель (или любое другое самое дорогое по опыту заклинание). Другого лучшего варианта быть не может. Другое дело, что не у всех игроков есть столько маны. </p>
+
+
+
+<p class="wp-block-paragraph">Однако логика расчетов будет сохраняться – <strong>самая эффективная конвертация маны в опыт находится в точке, при которой игрок кастует 33 раза заклинание с наивысшим опытом за 1ед. маны среди всех доступных заклинаний, расходуя при этом всю ману. </strong>Соответственно для каждого класса и пула магии это заклинание отличается.</p>
+
+
+
+<p class="wp-block-paragraph">Посчитаем наиболее выгодные заклинания для нескольких вариантов количества маны у игрока. Результаты представлены в таблице ниже.</p>
+
+
+
+<div class="wp-block-wpdatatables-wpdatatables-gutenberg-block">
+    <div class="wpdt-c ">
+    
+<input type="hidden" id="wdtNonceFrontendEdit" name="wdtNonceFrontendEdit" value="3b59cfe058"><input type="hidden" name="_wp_http_referer" value="/?p=234">    <input type="hidden" id="table_1_desc" value='{"tableId":"table_1","tableType":"csv","selector":"#table_1","responsive":true,"responsiveAction":"icon","infoBlock":true,"pagination":1,"paginationAlign":"right","paginationLayout":"full_numbers","paginationLayoutMobile":"simple","file_location":"wp_media_lib","table_wcag":0,"simple_template_id":0,"scrollable":true,"globalSearch":true,"showRowsPerPage":true,"hideBeforeLoad":true,"pagination_top":0,"number_format":1,"decimalPlaces":2,"spinnerSrc":"https:\/\/daily.chaosage.app\/wp-content\/plugins\/wpdatatables\/assets\/\/img\/spinner.gif","groupingEnabled":false,"tableWpId":4,"dataTableParams":{"sDom":"BT\u003C\u0027clear\u0027\u003Elf\u003C\u0027wdtscroll\u0027t\u003Eip","bSortCellsTop":false,"bPaginate":true,"sPaginationType":"full_numbers","aLengthMenu":[[1,5,10,25,50,100,-1],[1,5,10,25,50,100,"\u0412\u0441\u0435"]],"iDisplayLength":10,"columnDefs":[{"sType":"formatted-num","wdtType":"int","bVisible":true,"orderable":true,"searchable":true,"InputType":"text","name":"id","origHeader":"id","notNull":false,"conditionalFormattingRules":[],"className":"numdata integer  column-id","aTargets":[0]},{"sType":"string","wdtType":"string","bVisible":true,"orderable":true,"searchable":true,"InputType":"text","name":"\u0418\u043c\u044f","origHeader":"\u0418\u043c\u044f","notNull":false,"conditionalFormattingRules":[],"className":" column-1","aTargets":[1]},{"sType":"formatted-num","wdtType":"int","bVisible":true,"orderable":true,"searchable":true,"InputType":"text","name":"\u041c\u0430\u043d\u0430","origHeader":"\u041c\u0430\u043d\u0430","notNull":false,"conditionalFormattingRules":[],"className":"numdata integer  column-2","aTargets":[2]},{"sType":"formatted-num","wdtType":"int","bVisible":true,"orderable":true,"searchable":true,"InputType":"text","name":"\u0423\u0440\u043e\u0432\u0435\u043d\u044c \u0437\u0430\u043a\u043b\u0438\u043d\u0430\u043d\u0438\u044f","origHeader":"\u0423\u0440\u043e\u0432\u0435\u043d\u044c \u0437\u0430\u043a\u043b\u0438\u043d\u0430\u043d\u0438\u044f","notNull":false,"conditionalFormattingRules":[],"className":"numdata integer  column--","aTargets":[3]},{"sType":"formatted-num","wdtType":"int","bVisible":true,"orderable":true,"searchable":true,"InputType":"text","name":"\u041e\u043f\u044b\u0442","origHeader":"\u041e\u043f\u044b\u0442","notNull":false,"conditionalFormattingRules":[],"className":"numdata integer  column-4","aTargets":[4]},{"sType":"formatted-num","wdtType":"int","bVisible":true,"orderable":true,"searchable":true,"InputType":"text","name":"\u041e\u043f\u044b\u0442 \u0437\u0430 2 000 \u043c\u0430\u043d\u044b","origHeader":"\u041e\u043f\u044b\u0442 \u0437\u0430 2 000 \u043c\u0430\u043d\u044b","notNull":false,"conditionalFormattingRules":[],"className":"numdata integer  column---2-000-","aTargets":[5]},{"sType":"formatted-num","wdtType":"int","bVisible":true,"orderable":true,"searchable":true,"InputType":"text","name":"\u041e\u043f\u044b\u0442 \u0437\u0430 10 000 \u043c\u0430\u043d\u044b","origHeader":"\u041e\u043f\u044b\u0442 \u0437\u0430 10 000 \u043c\u0430\u043d\u044b","notNull":false,"conditionalFormattingRules":[],"className":"numdata integer  column---10-000-","aTargets":[6]},{"sType":"formatted-num","wdtType":"int","bVisible":true,"orderable":true,"searchable":true,"InputType":"text","name":"\u041e\u043f\u044b\u0442 \u0437\u0430 50 000 \u043c\u0430\u043d\u044b","origHeader":"\u041e\u043f\u044b\u0442 \u0437\u0430 50 000 \u043c\u0430\u043d\u044b","notNull":false,"conditionalFormattingRules":[],"className":"numdata integer  column---50-000-","aTargets":[7]},{"sType":"formatted-num","wdtType":"int","bVisible":true,"orderable":true,"searchable":true,"InputType":"text","name":"\u041e\u043f\u044b\u0442 \u0437\u0430 100 000 \u043c\u0430\u043d\u044b","origHeader":"\u041e\u043f\u044b\u0442 \u0437\u0430 100 000 \u043c\u0430\u043d\u044b","notNull":false,"conditionalFormattingRules":[],"className":"numdata integer  column---100-000-","aTargets":[8]}],"bAutoWidth":false,"order":[[0,"asc"]],"ordering":true,"buttons":[{"extend":"print","exportOptions":{"columns":":visible","stripHtml":true},"className":"DTTT_button DTTT_button_print","title":"New wpDataTable","text":"\u041f\u0435\u0447\u0430\u0442\u044c"},{"extend":"excelHtml5","exportOptions":{"columns":":visible","stripHtml":true},"className":"DTTT_button DTTT_button_xls","filename":"New wpDataTable","title":null,"text":"Excel"},{"extend":"csvHtml5","exportOptions":{"columns":":visible","stripHtml":true},"className":"DTTT_button DTTT_button_csv","title":"New wpDataTable","text":"CSV"},{"extend":"copyHtml5","exportOptions":{"columns":":visible","stripHtml":true},"className":"DTTT_button DTTT_button_copy","filename":"New wpDataTable","title":null,"text":"\u041a\u043e\u043f\u0438\u0440\u043e\u0432\u0430\u0442\u044c"}],"oSearch":{"bSmart":false,"bRegex":false,"sSearch":""}},"currentSkin":"skin1","tabletWidth":"1024","mobileWidth":"480","columnsFixed":0,"timeFormat":"h:i A","datepickFormat":"dd\/mm\/yy"}'>
+
+    <table id="table_1" class="scroll           responsive           display nowrap data-t wpDataTable wpDataTableID-4" style="display: none; " data-described-by="table_1_desc" data-wpdatatable_id="4">
+        
+        <!-- Table header -->
+        
+<thead>
+<tr>
+                    <th data-class="expand" class=" wdtheader sort numdata integer " style="">id</th>        <th class=" wdtheader sort " style="">Имя</th>        <th class=" wdtheader sort numdata integer " style="">Мана</th>        <th class=" wdtheader sort numdata integer " style="">Уровень заклинания</th>        <th class=" wdtheader sort numdata integer " style="">Опыт</th>        <th class=" wdtheader sort numdata integer " style="">Опыт за 2 000 маны</th>        <th class=" wdtheader sort numdata integer " style="">Опыт за 10 000 маны</th>        <th class=" wdtheader sort numdata integer " style="">Опыт за 50 000 маны</th>        <th class=" wdtheader sort numdata integer " style="">Опыт за 100 000 маны</th>    </tr>
+</thead>
+        <!-- /Table header -->
+
+        <!-- Table body -->
+        
+<tbody>
+        <tr id="table_4_row_0">
+                    <td style="">0</td>
+                    <td style="">Статический разряд</td>
+                    <td style="">10</td>
+                    <td style="">1</td>
+                    <td style="">29</td>
+                    <td style="">498</td>
+                    <td style="">498</td>
+                    <td style="">498</td>
+                    <td style="">498</td>
+            </tr>
+            <tr id="table_4_row_1">
+                    <td style="">1</td>
+                    <td style="">Огненный шар</td>
+                    <td style="">109</td>
+                    <td style="">5</td>
+                    <td style="">136</td>
+                    <td style="">1.824</td>
+                    <td style="">2.335</td>
+                    <td style="">2.335</td>
+                    <td style="">2.335</td>
+            </tr>
+            <tr id="table_4_row_2">
+                    <td style="">2</td>
+                    <td style="">Молния</td>
+                    <td style="">54</td>
+                    <td style="">3</td>
+                    <td style="">83</td>
+                    <td style="">1.425</td>
+                    <td style="">1.425</td>
+                    <td style="">1.425</td>
+                    <td style="">1.425</td>
+            </tr>
+            <tr id="table_4_row_3">
+                    <td style="">3</td>
+                    <td style="">Зачаровать огнем</td>
+                    <td style="">57</td>
+                    <td style="">4</td>
+                    <td style="">85</td>
+                    <td style="">1.459</td>
+                    <td style="">1.459</td>
+                    <td style="">1.459</td>
+                    <td style="">1.459</td>
+            </tr>
+            <tr id="table_4_row_4">
+                    <td style="">4</td>
+                    <td style="">Ледяная броня</td>
+                    <td style="">73</td>
+                    <td style="">4</td>
+                    <td style="">102</td>
+                    <td style="">1.680</td>
+                    <td style="">1.751</td>
+                    <td style="">1.751</td>
+                    <td style="">1.751</td>
+            </tr>
+            <tr id="table_4_row_5">
+                    <td style="">5</td>
+                    <td style="">Призыв ледяной стены</td>
+                    <td style="">61</td>
+                    <td style="">5</td>
+                    <td style="">93</td>
+                    <td style="">1.592</td>
+                    <td style="">1.597</td>
+                    <td style="">1.597</td>
+                    <td style="">1.597</td>
+            </tr>
+            <tr id="table_4_row_6">
+                    <td style="">6</td>
+                    <td style="">Испепеление</td>
+                    <td style="">87</td>
+                    <td style="">6</td>
+                    <td style="">123</td>
+                    <td style="">1.854</td>
+                    <td style="">2.112</td>
+                    <td style="">2.112</td>
+                    <td style="">2.112</td>
+            </tr>
+            <tr id="table_4_row_7">
+                    <td style="">7</td>
+                    <td style="">Призыв огня глубин</td>
+                    <td style="">403</td>
+                    <td style="">7</td>
+                    <td style="">352</td>
+                    <td style="">1.345</td>
+                    <td style="">5.533</td>
+                    <td style="">6.044</td>
+                    <td style="">6.044</td>
+            </tr>
+            <tr id="table_4_row_8">
+                    <td style="">8</td>
+                    <td style="">Цепная молния</td>
+                    <td style="">237</td>
+                    <td style="">7</td>
+                    <td style="">241</td>
+                    <td style="">1.726</td>
+                    <td style="">4.138</td>
+                    <td style="">4.138</td>
+                    <td style="">4.138</td>
+            </tr>
+            <tr id="table_4_row_9">
+                    <td style="">9</td>
+                    <td style="">Каменные тиски</td>
+                    <td style="">303</td>
+                    <td style="">8</td>
+                    <td style="">291</td>
+                    <td style="">1.615</td>
+                    <td style="">4.994</td>
+                    <td style="">4.996</td>
+                    <td style="">4.996</td>
+            </tr>
+            <tr id="table_4_row_10">
+                    <td style="">10</td>
+                    <td style="">Знак разрушения</td>
+                    <td style="">614</td>
+                    <td style="">9</td>
+                    <td style="">478</td>
+                    <td style="">1.391</td>
+                    <td style="">5.927</td>
+                    <td style="">8.207</td>
+                    <td style="">8.207</td>
+            </tr>
+            <tr id="table_4_row_11">
+                    <td style="">11</td>
+                    <td style="">Огненная стена</td>
+                    <td style="">410</td>
+                    <td style="">9</td>
+                    <td style="">363</td>
+                    <td style="">1.387</td>
+                    <td style="">5.706</td>
+                    <td style="">6.233</td>
+                    <td style="">6.233</td>
+            </tr>
+            <tr id="table_4_row_12">
+                    <td style="">12</td>
+                    <td style="">Ураган</td>
+                    <td style="">797</td>
+                    <td style="">10</td>
+                    <td style="">578</td>
+                    <td style="">1.139</td>
+                    <td style="">5.792</td>
+                    <td style="">9.924</td>
+                    <td style="">9.924</td>
+            </tr>
+            <tr id="table_4_row_13">
+                    <td style="">13</td>
+                    <td style="">Кристаллический доспех</td>
+                    <td style="">920</td>
+                    <td style="">11</td>
+                    <td style="">644</td>
+                    <td style="">1.269</td>
+                    <td style="">5.571</td>
+                    <td style="">11.057</td>
+                    <td style="">11.057</td>
+            </tr>
+            <tr id="table_4_row_14">
+                    <td style="">14</td>
+                    <td style="">Глаз бури</td>
+                    <td style="">3.060</td>
+                    <td style="">12</td>
+                    <td style="">1.570</td>
+                    <td style="">0</td>
+                    <td style="">4.569</td>
+                    <td style="">19.468</td>
+                    <td style="">26.878</td>
+            </tr>
+            <tr id="table_4_row_15">
+                    <td style="">15</td>
+                    <td style="">Ледяная смерть</td>
+                    <td style="">718</td>
+                    <td style="">12</td>
+                    <td style="">560</td>
+                    <td style="">1.103</td>
+                    <td style="">5.970</td>
+                    <td style="">9.615</td>
+                    <td style="">9.615</td>
+            </tr>
+            <tr id="table_4_row_16">
+                    <td style="">16</td>
+                    <td style="">Великая огненная стена</td>
+                    <td style="">1.440</td>
+                    <td style="">13</td>
+                    <td style="">894</td>
+                    <td style="">894</td>
+                    <td style="">4.962</td>
+                    <td style="">15.350</td>
+                    <td style="">15.350</td>
+            </tr>
+            <tr id="table_4_row_17">
+                    <td style="">17</td>
+                    <td style="">Сеть уничтожения</td>
+                    <td style="">1.717</td>
+                    <td style="">14</td>
+                    <td style="">1.018</td>
+                    <td style="">1.018</td>
+                    <td style="">4.785</td>
+                    <td style="">17.123</td>
+                    <td style="">17.479</td>
+            </tr>
+            <tr id="table_4_row_18">
+                    <td style="">18</td>
+                    <td style="">Обратная тяга</td>
+                    <td style="">1.060</td>
+                    <td style="">14</td>
+                    <td style="">749</td>
+                    <td style="">749</td>
+                    <td style="">5.932</td>
+                    <td style="">12.860</td>
+                    <td style="">12.860</td>
+            </tr>
+            <tr id="table_4_row_19">
+                    <td style="">19</td>
+                    <td style="">Пепельное торнадо</td>
+                    <td style="">2.190</td>
+                    <td style="">14</td>
+                    <td style="">1.204</td>
+                    <td style="">0</td>
+                    <td style="">4.599</td>
+                    <td style="">18.144</td>
+                    <td style="">20.673</td>
+            </tr>
+            <tr id="table_4_row_20">
+                    <td style="">20</td>
+                    <td style="">Проводник разрушения</td>
+                    <td style="">1.360</td>
+                    <td style="">15</td>
+                    <td style="">892</td>
+                    <td style="">892</td>
+                    <td style="">5.682</td>
+                    <td style="">15.316</td>
+                    <td style="">15.316</td>
+            </tr>
+            <tr id="table_4_row_21">
+                    <td style="">21</td>
+                    <td style="">Гнев грома и молнии</td>
+                    <td style="">3.520</td>
+                    <td style="">15</td>
+                    <td style="">1.701</td>
+                    <td style="">0</td>
+                    <td style="">3.351</td>
+                    <td style="">19.170</td>
+                    <td style="">28.339</td>
+            </tr>
+            <tr id="table_4_row_22">
+                    <td style="">22</td>
+                    <td style="">Доминион разрушения</td>
+                    <td style="">4.080</td>
+                    <td style="">15</td>
+                    <td style="">1.901</td>
+                    <td style="">0</td>
+                    <td style="">3.745</td>
+                    <td style="">19.048</td>
+                    <td style="">29.884</td>
+            </tr>
+            <tr id="table_4_row_23">
+                    <td style="">23</td>
+                    <td style="">Встречный ветер</td>
+                    <td style="">710</td>
+                    <td style="">12</td>
+                    <td style="">557</td>
+                    <td style="">1.097</td>
+                    <td style="">6.277</td>
+                    <td style="">9.564</td>
+                    <td style="">9.564</td>
+            </tr>
+            <tr id="table_4_row_24">
+                    <td style="">24</td>
+                    <td style="">Мнимое бессилие</td>
+                    <td style="">10</td>
+                    <td style="">1</td>
+                    <td style="">29</td>
+                    <td style="">498</td>
+                    <td style="">498</td>
+                    <td style="">498</td>
+                    <td style="">498</td>
+            </tr>
+            <tr id="table_4_row_25">
+                    <td style="">25</td>
+                    <td style="">Великое заклинание скорости</td>
+                    <td style="">80</td>
+                    <td style="">10</td>
+                    <td style="">183</td>
+                    <td style="">2.928</td>
+                    <td style="">3.142</td>
+                    <td style="">3.142</td>
+                    <td style="">3.142</td>
+            </tr>
+            <tr id="table_4_row_26">
+                    <td style="">26</td>
+                    <td style="">Глупый героизм</td>
+                    <td style="">118</td>
+                    <td style="">5</td>
+                    <td style="">144</td>
+                    <td style="">1.786</td>
+                    <td style="">2.472</td>
+                    <td style="">2.472</td>
+                    <td style="">2.472</td>
+            </tr>
+            <tr id="table_4_row_27">
+                    <td style="">27</td>
+                    <td style="">Ментальный шок</td>
+                    <td style="">68</td>
+                    <td style="">4</td>
+                    <td style="">96</td>
+                    <td style="">1.615</td>
+                    <td style="">1.648</td>
+                    <td style="">1.648</td>
+                    <td style="">1.648</td>
+            </tr>
+            <tr id="table_4_row_28">
+                    <td style="">28</td>
+                    <td style="">Призрачное копье</td>
+                    <td style="">93</td>
+                    <td style="">5</td>
+                    <td style="">122</td>
+                    <td style="">1.793</td>
+                    <td style="">2.095</td>
+                    <td style="">2.095</td>
+                    <td style="">2.095</td>
+            </tr>
+            <tr id="table_4_row_29">
+                    <td style="">29</td>
+                    <td style="">Подавление жизни</td>
+                    <td style="">241</td>
+                    <td style="">8</td>
+                    <td style="">251</td>
+                    <td style="">1.797</td>
+                    <td style="">4.310</td>
+                    <td style="">4.310</td>
+                    <td style="">4.310</td>
+            </tr>
+            <tr id="table_4_row_30">
+                    <td style="">30</td>
+                    <td style="">Вселить уверенность</td>
+                    <td style="">135</td>
+                    <td style="">7</td>
+                    <td style="">169</td>
+                    <td style="">1.905</td>
+                    <td style="">2.902</td>
+                    <td style="">2.902</td>
+                    <td style="">2.902</td>
+            </tr>
+            <tr id="table_4_row_31">
+                    <td style="">31</td>
+                    <td style="">Ментальный щит</td>
+                    <td style="">94</td>
+                    <td style="">5</td>
+                    <td style="">123</td>
+                    <td style="">1.808</td>
+                    <td style="">2.112</td>
+                    <td style="">2.112</td>
+                    <td style="">2.112</td>
+            </tr>
+            <tr id="table_4_row_32">
+                    <td style="">32</td>
+                    <td style="">Призрачные клинки</td>
+                    <td style="">215</td>
+                    <td style="">8</td>
+                    <td style="">234</td>
+                    <td style="">1.853</td>
+                    <td style="">4.018</td>
+                    <td style="">4.018</td>
+                    <td style="">4.018</td>
+            </tr>
+            <tr id="table_4_row_33">
+                    <td style="">33</td>
+                    <td style="">Ментальные оковы</td>
+                    <td style="">370</td>
+                    <td style="">8</td>
+                    <td style="">332</td>
+                    <td style="">1.560</td>
+                    <td style="">5.468</td>
+                    <td style="">5.700</td>
+                    <td style="">5.700</td>
+            </tr>
+            <tr id="table_4_row_34">
+                    <td style="">34</td>
+                    <td style="">Малое подчинение воли</td>
+                    <td style="">878</td>
+                    <td style="">10</td>
+                    <td style="">619</td>
+                    <td style="">1.219</td>
+                    <td style="">5.788</td>
+                    <td style="">10.628</td>
+                    <td style="">10.628</td>
+            </tr>
+            <tr id="table_4_row_35">
+                    <td style="">35</td>
+                    <td style="">Ожог маны</td>
+                    <td style="">693</td>
+                    <td style="">9</td>
+                    <td style="">521</td>
+                    <td style="">1.026</td>
+                    <td style="">5.872</td>
+                    <td style="">8.946</td>
+                    <td style="">8.946</td>
+            </tr>
+            <tr id="table_4_row_36">
+                    <td style="">36</td>
+                    <td style="">Ускорение времени</td>
+                    <td style="">863</td>
+                    <td style="">14</td>
+                    <td style="">666</td>
+                    <td style="">1.312</td>
+                    <td style="">6.227</td>
+                    <td style="">11.435</td>
+                    <td style="">11.435</td>
+            </tr>
+            <tr id="table_4_row_37">
+                    <td style="">37</td>
+                    <td style="">Удушение</td>
+                    <td style="">500</td>
+                    <td style="">12</td>
+                    <td style="">456</td>
+                    <td style="">1.742</td>
+                    <td style="">6.521</td>
+                    <td style="">7.830</td>
+                    <td style="">7.830</td>
+            </tr>
+            <tr id="table_4_row_38">
+                    <td style="">38</td>
+                    <td style="">Паралич</td>
+                    <td style="">608</td>
+                    <td style="">9</td>
+                    <td style="">475</td>
+                    <td style="">1.382</td>
+                    <td style="">5.890</td>
+                    <td style="">8.156</td>
+                    <td style="">8.156</td>
+            </tr>
+            <tr id="table_4_row_39">
+                    <td style="">39</td>
+                    <td style="">Опустошение разума</td>
+                    <td style="">760</td>
+                    <td style="">12</td>
+                    <td style="">580</td>
+                    <td style="">1.143</td>
+                    <td style="">6.183</td>
+                    <td style="">9.959</td>
+                    <td style="">9.959</td>
+            </tr>
+            <tr id="table_4_row_40">
+                    <td style="">40</td>
+                    <td style="">Помешательство</td>
+                    <td style="">710</td>
+                    <td style="">11</td>
+                    <td style="">542</td>
+                    <td style="">1.068</td>
+                    <td style="">6.108</td>
+                    <td style="">9.306</td>
+                    <td style="">9.306</td>
+            </tr>
+            <tr id="table_4_row_41">
+                    <td style="">41</td>
+                    <td style="">Приказ защиты</td>
+                    <td style="">2.090</td>
+                    <td style="">14</td>
+                    <td style="">1.165</td>
+                    <td style="">0</td>
+                    <td style="">4.450</td>
+                    <td style="">17.953</td>
+                    <td style="">20.003</td>
+            </tr>
+            <tr id="table_4_row_42">
+                    <td style="">42</td>
+                    <td style="">Приказ атаки</td>
+                    <td style="">2.900</td>
+                    <td style="">14</td>
+                    <td style="">1.477</td>
+                    <td style="">0</td>
+                    <td style="">4.298</td>
+                    <td style="">19.083</td>
+                    <td style="">25.360</td>
+            </tr>
+            <tr id="table_4_row_43">
+                    <td style="">43</td>
+                    <td style="">Ожог пустотой</td>
+                    <td style="">2.610</td>
+                    <td style="">14</td>
+                    <td style="">1.367</td>
+                    <td style="">0</td>
+                    <td style="">3.978</td>
+                    <td style="">18.960</td>
+                    <td style="">23.471</td>
+            </tr>
+            <tr id="table_4_row_44">
+                    <td style="">44</td>
+                    <td style="">Создание фантома</td>
+                    <td style="">6.046</td>
+                    <td style="">15</td>
+                    <td style="">2.582</td>
+                    <td style="">0</td>
+                    <td style="">2.582</td>
+                    <td style="">18.487</td>
+                    <td style="">32.017</td>
+            </tr>
+            <tr id="table_4_row_45">
+                    <td style="">45</td>
+                    <td style="">Великое помешательство</td>
+                    <td style="">7.200</td>
+                    <td style="">15</td>
+                    <td style="">2.972</td>
+                    <td style="">0</td>
+                    <td style="">2.972</td>
+                    <td style="">16.495</td>
+                    <td style="">31.682</td>
+            </tr>
+            <tr id="table_4_row_46">
+                    <td style="">46</td>
+                    <td style="">Лечение легких ран</td>
+                    <td style="">14</td>
+                    <td style="">1</td>
+                    <td style="">39</td>
+                    <td style="">670</td>
+                    <td style="">670</td>
+                    <td style="">670</td>
+                    <td style="">670</td>
+            </tr>
+            <tr id="table_4_row_47">
+                    <td style="">47</td>
+                    <td style="">Доблесть</td>
+                    <td style="">36</td>
+                    <td style="">2</td>
+                    <td style="">67</td>
+                    <td style="">1.150</td>
+                    <td style="">1.150</td>
+                    <td style="">1.150</td>
+                    <td style="">1.150</td>
+            </tr>
+            <tr id="table_4_row_48">
+                    <td style="">48</td>
+                    <td style="">Исцеление</td>
+                    <td style="">177</td>
+                    <td style="">8</td>
+                    <td style="">209</td>
+                    <td style="">1.954</td>
+                    <td style="">3.589</td>
+                    <td style="">3.589</td>
+                    <td style="">3.589</td>
+            </tr>
+            <tr id="table_4_row_49">
+                    <td style="">49</td>
+                    <td style="">Регенерация</td>
+                    <td style="">86</td>
+                    <td style="">4</td>
+                    <td style="">115</td>
+                    <td style="">1.772</td>
+                    <td style="">1.975</td>
+                    <td style="">1.975</td>
+                    <td style="">1.975</td>
+            </tr>
+            <tr id="table_4_row_50">
+                    <td style="">50</td>
+                    <td style="">Солнечный луч</td>
+                    <td style="">25</td>
+                    <td style="">3</td>
+                    <td style="">47</td>
+                    <td style="">807</td>
+                    <td style="">807</td>
+                    <td style="">807</td>
+                    <td style="">807</td>
+            </tr>
+            <tr id="table_4_row_51">
+                    <td style="">51</td>
+                    <td style="">Призматический свет</td>
+                    <td style="">157</td>
+                    <td style="">6</td>
+                    <td style="">178</td>
+                    <td style="">1.784</td>
+                    <td style="">3.056</td>
+                    <td style="">3.056</td>
+                    <td style="">3.056</td>
+            </tr>
+            <tr id="table_4_row_52">
+                    <td style="">52</td>
+                    <td style="">Трансформация</td>
+                    <td style="">2.980</td>
+                    <td style="">9</td>
+                    <td style="">1.663</td>
+                    <td style="">0</td>
+                    <td style="">4.839</td>
+                    <td style="">20.621</td>
+                    <td style="">28.537</td>
+            </tr>
+            <tr id="table_4_row_53">
+                    <td style="">53</td>
+                    <td style="">Общее лечение</td>
+                    <td style="">330</td>
+                    <td style="">8</td>
+                    <td style="">307</td>
+                    <td style="">1.704</td>
+                    <td style="">5.204</td>
+                    <td style="">5.271</td>
+                    <td style="">5.271</td>
+            </tr>
+            <tr id="table_4_row_54">
+                    <td style="">54</td>
+                    <td style="">Боевая гармония</td>
+                    <td style="">766</td>
+                    <td style="">10</td>
+                    <td style="">562</td>
+                    <td style="">1.107</td>
+                    <td style="">5.991</td>
+                    <td style="">9.650</td>
+                    <td style="">9.650</td>
+            </tr>
+            <tr id="table_4_row_55">
+                    <td style="">55</td>
+                    <td style="">Жажда жизни</td>
+                    <td style="">1.460</td>
+                    <td style="">11</td>
+                    <td style="">897</td>
+                    <td style="">897</td>
+                    <td style="">4.978</td>
+                    <td style="">15.401</td>
+                    <td style="">15.401</td>
+            </tr>
+            <tr id="table_4_row_56">
+                    <td style="">56</td>
+                    <td style="">Небесная кара</td>
+                    <td style="">703</td>
+                    <td style="">12</td>
+                    <td style="">553</td>
+                    <td style="">1.089</td>
+                    <td style="">6.232</td>
+                    <td style="">9.495</td>
+                    <td style="">9.495</td>
+            </tr>
+            <tr id="table_4_row_57">
+                    <td style="">57</td>
+                    <td style="">Воодушевление</td>
+                    <td style="">218</td>
+                    <td style="">7</td>
+                    <td style="">228</td>
+                    <td style="">1.806</td>
+                    <td style="">3.915</td>
+                    <td style="">3.915</td>
+                    <td style="">3.915</td>
+            </tr>
+            <tr id="table_4_row_58">
+                    <td style="">58</td>
+                    <td style="">Озарение</td>
+                    <td style="">630</td>
+                    <td style="">11</td>
+                    <td style="">503</td>
+                    <td style="">1.464</td>
+                    <td style="">5.961</td>
+                    <td style="">8.637</td>
+                    <td style="">8.637</td>
+            </tr>
+            <tr id="table_4_row_59">
+                    <td style="">59</td>
+                    <td style="">Оберег света</td>
+                    <td style="">810</td>
+                    <td style="">14</td>
+                    <td style="">643</td>
+                    <td style="">1.267</td>
+                    <td style="">6.443</td>
+                    <td style="">11.040</td>
+                    <td style="">11.040</td>
+            </tr>
+            <tr id="table_4_row_60">
+                    <td style="">60</td>
+                    <td style="">Прикосновение бога</td>
+                    <td style="">2.808</td>
+                    <td style="">13</td>
+                    <td style="">1.451</td>
+                    <td style="">0</td>
+                    <td style="">4.222</td>
+                    <td style="">18.747</td>
+                    <td style="">24.914</td>
+            </tr>
+            <tr id="table_4_row_61">
+                    <td style="">61</td>
+                    <td style="">Лечение средних ран</td>
+                    <td style="">406</td>
+                    <td style="">11</td>
+                    <td style="">389</td>
+                    <td style="">1.486</td>
+                    <td style="">6.115</td>
+                    <td style="">6.679</td>
+                    <td style="">6.679</td>
+            </tr>
+            <tr id="table_4_row_62">
+                    <td style="">62</td>
+                    <td style="">Великая регенерация</td>
+                    <td style="">1.811</td>
+                    <td style="">13</td>
+                    <td style="">1.049</td>
+                    <td style="">1.049</td>
+                    <td style="">4.930</td>
+                    <td style="">17.277</td>
+                    <td style="">18.011</td>
+            </tr>
+            <tr id="table_4_row_63">
+                    <td style="">63</td>
+                    <td style="">Антидот</td>
+                    <td style="">520</td>
+                    <td style="">12</td>
+                    <td style="">466</td>
+                    <td style="">1.356</td>
+                    <td style="">6.463</td>
+                    <td style="">8.001</td>
+                    <td style="">8.001</td>
+            </tr>
+            <tr id="table_4_row_64">
+                    <td style="">64</td>
+                    <td style="">Защита от смерти</td>
+                    <td style="">1.374</td>
+                    <td style="">14</td>
+                    <td style="">879</td>
+                    <td style="">879</td>
+                    <td style="">5.599</td>
+                    <td style="">15.092</td>
+                    <td style="">15.092</td>
+            </tr>
+            <tr id="table_4_row_65">
+                    <td style="">65</td>
+                    <td style="">Лечение тяжелых ран</td>
+                    <td style="">780</td>
+                    <td style="">14</td>
+                    <td style="">630</td>
+                    <td style="">1.241</td>
+                    <td style="">6.313</td>
+                    <td style="">10.817</td>
+                    <td style="">10.817</td>
+            </tr>
+            <tr id="table_4_row_66">
+                    <td style="">66</td>
+                    <td style="">Новая вера</td>
+                    <td style="">3.550</td>
+                    <td style="">14</td>
+                    <td style="">1.721</td>
+                    <td style="">0</td>
+                    <td style="">3.390</td>
+                    <td style="">19.396</td>
+                    <td style="">28.672</td>
+            </tr>
+            <tr id="table_4_row_67">
+                    <td style="">67</td>
+                    <td style="">Сила единства</td>
+                    <td style="">3.670</td>
+                    <td style="">15</td>
+                    <td style="">1.755</td>
+                    <td style="">0</td>
+                    <td style="">3.457</td>
+                    <td style="">18.708</td>
+                    <td style="">28.905</td>
+            </tr>
+            <tr id="table_4_row_68">
+                    <td style="">68</td>
+                    <td style="">Ангел-хранитель</td>
+                    <td style="">11.600</td>
+                    <td style="">15</td>
+                    <td style="">4.407</td>
+                    <td style="">0</td>
+                    <td style="">0</td>
+                    <td style="">16.835</td>
+                    <td style="">31.554</td>
+            </tr>
+            <tr id="table_4_row_69">
+                    <td style="">69</td>
+                    <td style="">Отравленные брызги</td>
+                    <td style="">17</td>
+                    <td style="">1</td>
+                    <td style="">46</td>
+                    <td style="">790</td>
+                    <td style="">790</td>
+                    <td style="">790</td>
+                    <td style="">790</td>
+            </tr>
+            <tr id="table_4_row_70">
+                    <td style="">70</td>
+                    <td style="">Эманация смерти</td>
+                    <td style="">80</td>
+                    <td style="">5</td>
+                    <td style="">110</td>
+                    <td style="">1.760</td>
+                    <td style="">1.889</td>
+                    <td style="">1.889</td>
+                    <td style="">1.889</td>
+            </tr>
+            <tr id="table_4_row_71">
+                    <td style="">71</td>
+                    <td style="">Вызов зомби</td>
+                    <td style="">88</td>
+                    <td style="">3</td>
+                    <td style="">124</td>
+                    <td style="">1.869</td>
+                    <td style="">2.129</td>
+                    <td style="">2.129</td>
+                    <td style="">2.129</td>
+            </tr>
+            <tr id="table_4_row_72">
+                    <td style="">72</td>
+                    <td style="">Луч разрушения</td>
+                    <td style="">17</td>
+                    <td style="">3</td>
+                    <td style="">36</td>
+                    <td style="">618</td>
+                    <td style="">618</td>
+                    <td style="">618</td>
+                    <td style="">618</td>
+            </tr>
+            <tr id="table_4_row_73">
+                    <td style="">73</td>
+                    <td style="">Касание вампира</td>
+                    <td style="">86</td>
+                    <td style="">5</td>
+                    <td style="">116</td>
+                    <td style="">1.788</td>
+                    <td style="">1.992</td>
+                    <td style="">1.992</td>
+                    <td style="">1.992</td>
+            </tr>
+            <tr id="table_4_row_74">
+                    <td style="">74</td>
+                    <td style="">Вызов вестника смерти</td>
+                    <td style="">242</td>
+                    <td style="">6</td>
+                    <td style="">243</td>
+                    <td style="">1.740</td>
+                    <td style="">4.172</td>
+                    <td style="">4.172</td>
+                    <td style="">4.172</td>
+            </tr>
+            <tr id="table_4_row_75">
+                    <td style="">75</td>
+                    <td style="">Отравление</td>
+                    <td style="">103</td>
+                    <td style="">5</td>
+                    <td style="">131</td>
+                    <td style="">1.817</td>
+                    <td style="">2.249</td>
+                    <td style="">2.249</td>
+                    <td style="">2.249</td>
+            </tr>
+            <tr id="table_4_row_76">
+                    <td style="">76</td>
+                    <td style="">Темный ритуал</td>
+                    <td style="">335</td>
+                    <td style="">7</td>
+                    <td style="">307</td>
+                    <td style="">1.443</td>
+                    <td style="">5.164</td>
+                    <td style="">5.271</td>
+                    <td style="">5.271</td>
+            </tr>
+            <tr id="table_4_row_77">
+                    <td style="">77</td>
+                    <td style="">Отражение боли</td>
+                    <td style="">455</td>
+                    <td style="">9</td>
+                    <td style="">389</td>
+                    <td style="">1.486</td>
+                    <td style="">5.718</td>
+                    <td style="">6.679</td>
+                    <td style="">6.679</td>
+            </tr>
+            <tr id="table_4_row_78">
+                    <td style="">78</td>
+                    <td style="">Вызов черного паука</td>
+                    <td style="">718</td>
+                    <td style="">9</td>
+                    <td style="">535</td>
+                    <td style="">1.054</td>
+                    <td style="">5.703</td>
+                    <td style="">9.186</td>
+                    <td style="">9.186</td>
+            </tr>
+            <tr id="table_4_row_79">
+                    <td style="">79</td>
+                    <td style="">Армия тьмы</td>
+                    <td style="">960</td>
+                    <td style="">10</td>
+                    <td style="">661</td>
+                    <td style="">1.302</td>
+                    <td style="">5.718</td>
+                    <td style="">11.349</td>
+                    <td style="">11.349</td>
+            </tr>
+            <tr id="table_4_row_80">
+                    <td style="">80</td>
+                    <td style="">Темное знамение</td>
+                    <td style="">1.535</td>
+                    <td style="">11</td>
+                    <td style="">932</td>
+                    <td style="">932</td>
+                    <td style="">5.173</td>
+                    <td style="">15.956</td>
+                    <td style="">16.002</td>
+            </tr>
+            <tr id="table_4_row_81">
+                    <td style="">81</td>
+                    <td style="">Вызов рыцаря тьмы</td>
+                    <td style="">3.800</td>
+                    <td style="">13</td>
+                    <td style="">1.836</td>
+                    <td style="">0</td>
+                    <td style="">3.617</td>
+                    <td style="">19.572</td>
+                    <td style="">29.835</td>
+            </tr>
+            <tr id="table_4_row_82">
+                    <td style="">82</td>
+                    <td style="">Похищение жизни</td>
+                    <td style="">2.910</td>
+                    <td style="">13</td>
+                    <td style="">1.491</td>
+                    <td style="">0</td>
+                    <td style="">4.339</td>
+                    <td style="">19.264</td>
+                    <td style="">25.600</td>
+            </tr>
+            <tr id="table_4_row_83">
+                    <td style="">83</td>
+                    <td style="">Взорвать нежить</td>
+                    <td style="">1.320</td>
+                    <td style="">13</td>
+                    <td style="">843</td>
+                    <td style="">843</td>
+                    <td style="">5.370</td>
+                    <td style="">14.474</td>
+                    <td style="">14.474</td>
+            </tr>
+            <tr id="table_4_row_84">
+                    <td style="">84</td>
+                    <td style="">Смертный ливень</td>
+                    <td style="">2.530</td>
+                    <td style="">14</td>
+                    <td style="">1.336</td>
+                    <td style="">0</td>
+                    <td style="">3.888</td>
+                    <td style="">18.530</td>
+                    <td style="">22.939</td>
+            </tr>
+            <tr id="table_4_row_85">
+                    <td style="">85</td>
+                    <td style="">Оковы боли</td>
+                    <td style="">787</td>
+                    <td style="">14</td>
+                    <td style="">633</td>
+                    <td style="">1.247</td>
+                    <td style="">6.343</td>
+                    <td style="">10.869</td>
+                    <td style="">10.869</td>
+            </tr>
+            <tr id="table_4_row_86">
+                    <td style="">86</td>
+                    <td style="">Печать смерти</td>
+                    <td style="">2.150</td>
+                    <td style="">14</td>
+                    <td style="">1.189</td>
+                    <td style="">0</td>
+                    <td style="">4.542</td>
+                    <td style="">18.322</td>
+                    <td style="">20.415</td>
+            </tr>
+            <tr id="table_4_row_87">
+                    <td style="">87</td>
+                    <td style="">Призыв Вечного привратника</td>
+                    <td style="">8.860</td>
+                    <td style="">15</td>
+                    <td style="">3.521</td>
+                    <td style="">0</td>
+                    <td style="">3.521</td>
+                    <td style="">16.549</td>
+                    <td style="">32.921</td>
+            </tr>
+            <tr id="table_4_row_88">
+                    <td style="">88</td>
+                    <td style="">Призыв Подземного трупоеда</td>
+                    <td style="">9.980</td>
+                    <td style="">15</td>
+                    <td style="">3.886</td>
+                    <td style="">0</td>
+                    <td style="">3.886</td>
+                    <td style="">18.264</td>
+                    <td style="">33.614</td>
+            </tr>
+            <tr id="table_4_row_89">
+                    <td style="">89</td>
+                    <td style="">Договор со смертью</td>
+                    <td style="">4.200</td>
+                    <td style="">15</td>
+                    <td style="">1.943</td>
+                    <td style="">0</td>
+                    <td style="">3.828</td>
+                    <td style="">18.167</td>
+                    <td style="">29.942</td>
+            </tr>
+            <tr id="table_4_row_90">
+                    <td style="">90</td>
+                    <td style="">Призыв Полуночного охотника</td>
+                    <td style="">7.340</td>
+                    <td style="">14</td>
+                    <td style="">3.074</td>
+                    <td style="">0</td>
+                    <td style="">3.074</td>
+                    <td style="">17.061</td>
+                    <td style="">32.769</td>
+            </tr>
+            <tr id="table_4_row_91">
+                    <td style="">96</td>
+                    <td style="">Крысиный укус</td>
+                    <td style="">118</td>
+                    <td style="">4</td>
+                    <td style="">147</td>
+                    <td style="">1.823</td>
+                    <td style="">2.524</td>
+                    <td style="">2.524</td>
+                    <td style="">2.524</td>
+            </tr>
+            <tr id="table_4_row_92">
+                    <td style="">97</td>
+                    <td style="">Болотная лихорадка</td>
+                    <td style="">310</td>
+                    <td style="">6</td>
+                    <td style="">293</td>
+                    <td style="">1.626</td>
+                    <td style="">5.016</td>
+                    <td style="">5.031</td>
+                    <td style="">5.031</td>
+            </tr>
+            <tr id="table_4_row_93">
+                    <td style="">98</td>
+                    <td style="">Мелкие крысы</td>
+                    <td style="">165</td>
+                    <td style="">5</td>
+                    <td style="">184</td>
+                    <td style="">1.844</td>
+                    <td style="">3.159</td>
+                    <td style="">3.159</td>
+                    <td style="">3.159</td>
+            </tr>
+            <tr id="table_4_row_94">
+                    <td style="">99</td>
+                    <td style="">Призвать крысу</td>
+                    <td style="">650</td>
+                    <td style="">10</td>
+                    <td style="">502</td>
+                    <td style="">1.461</td>
+                    <td style="">5.949</td>
+                    <td style="">8.619</td>
+                    <td style="">8.619</td>
+            </tr>
+            <tr id="table_4_row_95">
+                    <td style="">100</td>
+                    <td style="">Серые язвы</td>
+                    <td style="">600</td>
+                    <td style="">9</td>
+                    <td style="">470</td>
+                    <td style="">1.368</td>
+                    <td style="">5.828</td>
+                    <td style="">8.070</td>
+                    <td style="">8.070</td>
+            </tr>
+            <tr id="table_4_row_96">
+                    <td style="">101</td>
+                    <td style="">Черная смерть</td>
+                    <td style="">4.570</td>
+                    <td style="">15</td>
+                    <td style="">2.073</td>
+                    <td style="">0</td>
+                    <td style="">4.084</td>
+                    <td style="">17.931</td>
+                    <td style="">30.473</td>
+            </tr>
+            <tr id="table_4_row_97">
+                    <td style="">102</td>
+                    <td style="">Вскрыть бубоны</td>
+                    <td style="">1.305</td>
+                    <td style="">12</td>
+                    <td style="">828</td>
+                    <td style="">828</td>
+                    <td style="">5.274</td>
+                    <td style="">14.217</td>
+                    <td style="">14.217</td>
+            </tr>
+            <tr id="table_4_row_98">
+                    <td style="">103</td>
+                    <td style="">Черные язвы</td>
+                    <td style="">930</td>
+                    <td style="">12</td>
+                    <td style="">659</td>
+                    <td style="">1.298</td>
+                    <td style="">5.700</td>
+                    <td style="">11.315</td>
+                    <td style="">11.315</td>
+            </tr>
+            <tr id="table_4_row_99">
+                    <td style="">104</td>
+                    <td style="">Выпустить яд</td>
+                    <td style="">850</td>
+                    <td style="">11</td>
+                    <td style="">611</td>
+                    <td style="">1.204</td>
+                    <td style="">5.713</td>
+                    <td style="">10.491</td>
+                    <td style="">10.491</td>
+            </tr>
+            <tr id="table_4_row_100">
+                    <td style="">105</td>
+                    <td style="">Волна отравы</td>
+                    <td style="">880</td>
+                    <td style="">12</td>
+                    <td style="">636</td>
+                    <td style="">1.253</td>
+                    <td style="">5.947</td>
+                    <td style="">10.920</td>
+                    <td style="">10.920</td>
+            </tr>
+            <tr id="table_4_row_101">
+                    <td style="">106</td>
+                    <td style="">Чумная манипуляция</td>
+                    <td style="">1.800</td>
+                    <td style="">13</td>
+                    <td style="">1.044</td>
+                    <td style="">1.044</td>
+                    <td style="">4.907</td>
+                    <td style="">17.195</td>
+                    <td style="">17.925</td>
+            </tr>
+            <tr id="table_4_row_102">
+                    <td style="">107</td>
+                    <td style="">Заразность</td>
+                    <td style="">530</td>
+                    <td style="">8</td>
+                    <td style="">429</td>
+                    <td style="">1.248</td>
+                    <td style="">5.753</td>
+                    <td style="">7.366</td>
+                    <td style="">7.366</td>
+            </tr>
+            <tr id="table_4_row_103">
+                    <td style="">108</td>
+                    <td style="">Миазмы</td>
+                    <td style="">2.018</td>
+                    <td style="">14</td>
+                    <td style="">1.137</td>
+                    <td style="">0</td>
+                    <td style="">4.343</td>
+                    <td style="">17.874</td>
+                    <td style="">19.522</td>
+            </tr>
+            <tr id="table_4_row_104">
+                    <td style="">109</td>
+                    <td style="">Плохие симптомы</td>
+                    <td style="">1.250</td>
+                    <td style="">13</td>
+                    <td style="">813</td>
+                    <td style="">813</td>
+                    <td style="">5.821</td>
+                    <td style="">13.959</td>
+                    <td style="">13.959</td>
+            </tr>
+            <tr id="table_4_row_105">
+                    <td style="">110</td>
+                    <td style="">Чумная стая</td>
+                    <td style="">2.614</td>
+                    <td style="">14</td>
+                    <td style="">1.368</td>
+                    <td style="">0</td>
+                    <td style="">3.981</td>
+                    <td style="">18.974</td>
+                    <td style="">23.489</td>
+            </tr>
+            <tr id="table_4_row_106">
+                    <td style="">111</td>
+                    <td style="">Носитель чумы</td>
+                    <td style="">2.200</td>
+                    <td style="">14</td>
+                    <td style="">1.208</td>
+                    <td style="">0</td>
+                    <td style="">4.615</td>
+                    <td style="">18.205</td>
+                    <td style="">20.741</td>
+            </tr>
+            <tr id="table_4_row_107">
+                    <td style="">112</td>
+                    <td style="">Ядовитая завеса</td>
+                    <td style="">2.480</td>
+                    <td style="">14</td>
+                    <td style="">1.317</td>
+                    <td style="">0</td>
+                    <td style="">5.031</td>
+                    <td style="">18.833</td>
+                    <td style="">22.613</td>
+            </tr>
+            <tr id="table_4_row_108">
+                    <td style="">113</td>
+                    <td style="">Токсичные споры</td>
+                    <td style="">317</td>
+                    <td style="">7</td>
+                    <td style="">295</td>
+                    <td style="">1.637</td>
+                    <td style="">5.030</td>
+                    <td style="">5.065</td>
+                    <td style="">5.065</td>
+            </tr>
+            <tr id="table_4_row_109">
+                    <td style="">114</td>
+                    <td style="">Ядовитый поток</td>
+                    <td style="">1.430</td>
+                    <td style="">14</td>
+                    <td style="">902</td>
+                    <td style="">902</td>
+                    <td style="">5.006</td>
+                    <td style="">15.487</td>
+                    <td style="">15.487</td>
+            </tr>
+            <tr id="table_4_row_110">
+                    <td style="">115</td>
+                    <td style="">Токсинофобия</td>
+                    <td style="">2.100</td>
+                    <td style="">14</td>
+                    <td style="">1.169</td>
+                    <td style="">0</td>
+                    <td style="">4.466</td>
+                    <td style="">18.014</td>
+                    <td style="">20.072</td>
+            </tr>
+            <tr id="table_4_row_111">
+                    <td style="">116</td>
+                    <td style="">Активированные токсины</td>
+                    <td style="">919</td>
+                    <td style="">11</td>
+                    <td style="">644</td>
+                    <td style="">1.269</td>
+                    <td style="">5.571</td>
+                    <td style="">11.057</td>
+                    <td style="">11.057</td>
+            </tr>
+            <tr id="table_4_row_112">
+                    <td style="">117</td>
+                    <td style="">Крысиный король</td>
+                    <td style="">7.860</td>
+                    <td style="">15</td>
+                    <td style="">3.192</td>
+                    <td style="">0</td>
+                    <td style="">3.192</td>
+                    <td style="">17.716</td>
+                    <td style="">31.984</td>
+            </tr>
+    </tbody>        <!-- /Table body -->
+
+        
+    </table>
+
+        <span class="powered_by_link d-block m-l-10 m-t-10 m-b-10">Generated by <a href="https://wpdatatables.com" rel="noopener noreferrer" target="_blank">wpDataTables</a></span>
+</div></div>
+
+
+
+<hr class="wp-block-separator has-css-opacity">
+
+
+
+<h2 class="wp-block-heading">Выводы</h2>
+
+
+
+<p class="wp-block-paragraph">В целом, данных из таблице выше вполне достаточно, чтобы прикинуть список заклинаний для максимальной эффективности перевода маны в опыт. Подведем итоги:</p>
+
+
+
+<ol class="wp-block-list">
+<li>Для получения наибольшего количества опыта необходимо слить всю ману на заклинание, <strong>произведение опыта и количество кастов которого больше, чем у всех остальных доступных заклинаний. </strong>Пример из таблицы: у игрока 10 000 маны, он может скастовать 1 трупоеда (3 886 опыта) или 20 удушений (6 521 опыта), или 12 оков боли (6 343 опыта). Удушение даст больше опыта, так как произведение количества опыта за 1 заклинание и количества кастов больше, чем у других рассматриваемых заклинаний (с учетом потери 3% опыта за каждый каст). Таблицу выше можно скачать и самостоятельно определить наиболее выгодное заклинание для прокачки под конкретное значение маны. </li>
+
+
+
+<li><strong>Воздействие на стоимость заклинания в мане приводит к изменению получаемого опыта за каст заклинания. </strong>Таким образом, если на игроке висит дебаф на +N% стоимости заклинаний (опустошение разума, экипированы кловеры и т.д.), опыт за каждое заклинание будет выше. И обратный эффект,<strong> сниженная стоимость заклинаний приводит к уменьшению получаемого за них опыта.</strong></li>
+
+
+
+<li>Миф о том, что необходимо чередовать заклинания для получения большего количества опыта остается мифом – <strong>разнообразие заклинаний в общем списке кастов не играет никакой роли.</strong> Сливаться можно и одним заклинанием.</li>
+
+
+
+<li><strong>Чем старше уровень заклинания (уровень магии для изучения), тем меньше эффективность конвертации маны в опыт</strong>, но так как растет стоимость произнесения заклинания в мане, заклинания старших уровней дают больше всего опыта за 1 каст.</li>
+
+
+
+<li>Максимальное количество заклинаний, за которое можно получить опыт в бою – 33. Все следующие заклинания будут давать 0 опыта.</li>
+
+
+
+<li>Исходя из предыдущего пункта делаем вывод о том, что <strong>выгоднее кастовать в начале боя самые дорогие по опыту заклинания</strong> (из пункта 1) и заканчивать самыми дешевыми из доступных. То есть 10 трупоедов и 10 статических разрядов дадут сильно больше опыта, чем 10 статических разрядов и 10 трупоедов.</li>
+</ol>
+
+
+
+<p class="wp-block-paragraph">Возможно скоро на Аватариуме появится соответствующий раздел, в котором можно определить наилучшую комбинацию для слива маны. </p>
+</div></div></main></body></html>
